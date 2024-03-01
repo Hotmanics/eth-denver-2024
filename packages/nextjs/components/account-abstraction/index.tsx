@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { createModularAccountAlchemyClient } from "@alchemy/aa-alchemy";
-import { Address, sepolia } from "@alchemy/aa-core";
+import { Address } from "@alchemy/aa-core";
 import { SmartAccountSigner } from "@alchemy/aa-core";
 
 // import { encodeFunctionData, parseEther } from "viem";
@@ -8,7 +8,7 @@ import { SmartAccountSigner } from "@alchemy/aa-core";
 // import { generatePrivateKey } from "viem/accounts";
 // import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
-const chain = sepolia;
+// const chain = sepolia;
 
 // The private key of your EOA that will be the signer to connect with the Modular Account
 // Our recommendation is to store the private key in an environment variable
@@ -44,9 +44,10 @@ const chain = sepolia;
 export function useCreateModularAccountAlchemyClient(
   apiKey: string | undefined,
   signer: SmartAccountSigner | undefined,
+  chain: any,
 ) {
   const createOverride = useMemo(() => {
-    return async (apiKey: string | undefined, signer: SmartAccountSigner | undefined) => {
+    return async (apiKey: string | undefined, signer: SmartAccountSigner | undefined, chain: any) => {
       if (!apiKey) return;
       if (!signer) return;
 
@@ -62,7 +63,7 @@ export function useCreateModularAccountAlchemyClient(
   }, []);
 
   async function create() {
-    return await createOverride(apiKey, signer);
+    return await createOverride(apiKey, signer, chain);
   }
 
   return { create, createOverride };
