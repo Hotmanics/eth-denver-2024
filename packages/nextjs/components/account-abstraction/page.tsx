@@ -8,14 +8,10 @@ import { SmartAccountSigner } from "@alchemy/aa-core";
 import { baseSepolia } from "@alchemy/aa-core";
 import { MagicSigner } from "@alchemy/aa-signers/magic";
 import { encodeFunctionData, formatEther } from "viem";
-import {
-  //, privateKeyToAccount
-  // Address,
-  generatePrivateKey,
-} from "viem/accounts";
+import { Address, generatePrivateKey, privateKeyToAccount } from "viem/accounts";
 import { useBalance } from "wagmi";
 import { useCreateModularAccountAlchemyClient } from "~~/components/account-abstraction";
-// import { Address as AddressComp } from "~~/components/scaffold-eth";
+import { Address as AddressComp } from "~~/components/scaffold-eth";
 import { useScaffoldContract } from "~~/hooks/scaffold-eth";
 
 const HomePage = () => {
@@ -137,7 +133,7 @@ const HomePage = () => {
               <h1>Account Information</h1>
 
               <p>Your Account Abstraction Public Key</p>
-              {/* <AddressComp address={provider.account.address as Address} /> */}
+              <AddressComp address={provider.account.address as Address} />
               <p>Balance: {formatEther(BigInt(balance?.data?.value.toString() || "0")) + " ether"}</p>
               <br />
               <button onClick={send}>Send User Op</button>
@@ -149,7 +145,7 @@ const HomePage = () => {
           {privateKey ? (
             <div>
               <p>Your Public Key</p>
-              {/* <Address address={privateKeyToAccount(privateKey).address as Hex} /> */}
+              <AddressComp address={privateKeyToAccount(privateKey).address as Address} />
               <br />
               <p>Your Private Key</p>
               <p>{privateKey}</p>
